@@ -3,10 +3,10 @@ package protocol
 import (
 	"crypto/sha1"
 	"encoding/base64"
-	"github.com/amdonov/lite-idp/store"
-	"github.com/satori/go.uuid"
 	"net/http"
 	"net/url"
+
+	"github.com/amdonov/lite-idp/store"
 )
 
 func NewArtifactResponseMarshaller(store store.Storer) ResponseMarshaller {
@@ -23,7 +23,7 @@ func (gen *artifactResponseMarshaller) Marshal(writer http.ResponseWriter, reque
 		http.Error(writer, err.Error(), 500)
 	}
 	parameters := url.Values{}
-	// Save the response to Redis
+	// Save the response to data store
 	artifact := getArtifact(response.Issuer.Value)
 	// Store the artifact for 5 minutes
 	gen.store.Store(artifact, response, 300)

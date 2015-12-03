@@ -1,13 +1,13 @@
 package authentication
 
 import (
-	"github.com/amdonov/lite-idp/protocol"
-	"github.com/amdonov/lite-idp/store"
-	"github.com/satori/go.uuid"
 	"log"
 	"net"
 	"net/http"
 	"strings"
+
+	"github.com/amdonov/lite-idp/protocol"
+	"github.com/amdonov/lite-idp/store"
 )
 
 type AuthFunc func(*protocol.AuthnRequest, string, *protocol.AuthenticatedUser, http.ResponseWriter, *http.Request)
@@ -35,8 +35,9 @@ func retrieveUserFromSession(request *http.Request, store store.Storer) *protoco
 	if err != nil {
 		return nil
 	}
-	// Read the user information from Redis
+	// Read the user information from datastore
 	var tmpUser protocol.AuthenticatedUser
+
 	err = store.Retrieve(cookie.Value, &tmpUser)
 	if err != nil {
 		return nil
@@ -94,7 +95,7 @@ func retrieveRequestState(request *http.Request, store store.Storer) (*protocol.
 	if err != nil {
 		return nil, ""
 	}
-	// Read the user information from Redis
+	// Read the user information from data store
 	var rs RequestState
 	err = store.Retrieve(cookie.Value, &rs)
 	if err != nil {

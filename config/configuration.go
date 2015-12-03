@@ -61,13 +61,13 @@ func LoadConfiguration() (*Configuration, error) {
 }
 
 type Configuration struct {
-	EntityId           string
-	Address            string
-	BaseURL            string
-	Certificate        string
-	Key                string
-	Log                string
-	Redis              Redis
+	EntityId    string
+	Address     string
+	BaseURL     string
+	Certificate string
+	Key         string
+	Log         string
+	//	Redis              Redis
 	Services           Services
 	Authenticator      *Authenticator
 	AttributeProviders *AttributeProviders
@@ -98,9 +98,9 @@ type JsonStore struct {
 	File string
 }
 
-type Redis struct {
-	Address string
-}
+// type Redis struct {
+// 	Address string
+// }
 
 type Services struct {
 	Authentication     string
